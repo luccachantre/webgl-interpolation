@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebGL Example File</title>
+ 
+	<script id="vshader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;	
+    attribute vec4 vColor;
+    uniform float vPointSize;
+    uniform mat4 projMatrix;
+    uniform mat4 cameraMatrix;
+    uniform mat4 modelMatrix;
+    varying vec4 fColor;
+    void main() {
+      gl_Position = projMatrix * cameraMatrix * modelMatrix * vPosition;
+      //new_gl_position = viewportMatrix * gl_Position //magic
+      gl_PointSize = vPointSize;
+      fColor = vColor;
+    }
+	</script>
+	
+	<script id="fshader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 fColor;
+    void main() 
+    {
+      gl_FragColor = fColor;
+    }
+	</script>
+	
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/initShaders.js"></script>
+    <script src="lib/MV.js"></script>
+    
+    
+
+  </head>
+ 
+  <body onload="main()">
+  
+    <canvas id="webgl" width="400" height="400">
+    	Please use a browser that supports the "canvas" tag.
+    </canvas>
+    <input type="file" id="inputFile" name="inputFile">
+
+    <script src="splines.js"></script>
+
+  </body>
+</html>
